@@ -1,0 +1,6 @@
+name: SafeLoad
+version: '1.0'
+main: com.swagsteve.safeload.SafeLoad
+api-version: 1.13
+commands:
+  sl-reload:
