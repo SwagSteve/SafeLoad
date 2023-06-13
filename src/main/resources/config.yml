@@ -1,25 +1,28 @@
 Options:
-  # suppress-join-message - Whether the join message for the player joining the server is delayed until their pack is loaded or not. (Default = true)
+  # suppress-join-message - Whether the join message for the player joining the server is delayed until their pack is loaded or not.
   suppress-join-message: true
 
   # delayed-join-message - The delayed message that will be put in chat when the player's pack loads. %name% = player name.
   delayed-join-message: '&e%name% joined the game'
 
-  # suppress-quit-message - Whether the quit message is shown in chat if the user doesn't load the pack
+  # suppress-quit-message - Whether the quit message is shown in chat if the user doesn't load the pack.
   suppress-quit-message: true
 
   # event-cancel-delay - delay (in ticks) between the pack loading and the player being able to move again (20 ticks = 1 second), Requires restart to change!!!
   event-cancel-delay: 30
 
-  # kick-if-rejected - Whether to kick the player if they reject the pack
+  # kick-if-rejected - Whether to kick the player if they reject the pack.
   kick-if-rejected: true
 
-  # kick-message - Message shown to player when they get kicked for rejecting the pack. %name% = player name
+  # kick-message - Message shown to player when they get kicked for rejecting the pack. %name% = player name.
   kick-message: 'You need to accept the resource pack to play'
 
+  # disable-chat - Stops loading players from receiving chat messages.
+  disable-chat: true
+
 Effects:
-  # invisibility - whether to grant loading player invisibility effect
+  # invisibility - Whether to grant loading player invisibility effect.
   invisibility: true
 
-  # blindness - whether to grant loading player blindness effect
+  # blindness - Whether to grant loading player blindness effect.
   blindness: true

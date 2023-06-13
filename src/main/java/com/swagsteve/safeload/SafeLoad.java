@@ -21,7 +21,7 @@ public final class SafeLoad extends JavaPlugin {
     }
 
     //Config cache values
-    public static Boolean enabled, suppress_join_message, suppress_quit_message, invisibility, blindness, kick_if_rejected;
+    public static Boolean disable_chat, suppress_join_message, suppress_quit_message, invisibility, blindness, kick_if_rejected;
     public static String delayed_join_message, kick_message;
     public static Integer event_cancel_delay;
 
@@ -72,6 +72,7 @@ public final class SafeLoad extends JavaPlugin {
         SafeLoad.invisibility = config.getBoolean("Effects.invisibility");
         SafeLoad.blindness = config.getBoolean("Effects.blindness");
         SafeLoad.kick_if_rejected = config.getBoolean("Options.kick-if-rejected");
+        SafeLoad.disable_chat = config.getBoolean("Options.disable-chat");
 
         //Strings
         SafeLoad.delayed_join_message = config.getString("Options.delayed-join-message");

@@ -3,6 +3,8 @@ package Listeners;
 import Utils.Utils;
 import com.swagsteve.safeload.SafeLoad;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -50,6 +52,10 @@ public class Events implements Listener {
                         p.removePotionEffect(PotionEffectType.INVISIBILITY);
                     }
 
+                    // Stop allowing flight
+                    if (!p.getGameMode().equals(GameMode.CREATIVE)) {
+                        p.setAllowFlight(false);
+                    }
                 }
             }, SafeLoad.event_cancel_delay);
         } else if (e.getStatus().equals(PlayerResourcePackStatusEvent.Status.DECLINED) || e.getStatus().equals(PlayerResourcePackStatusEvent.Status.FAILED_DOWNLOAD)) {
@@ -57,9 +63,22 @@ public class Events implements Listener {
                 Bukkit.getScheduler().scheduleSyncDelayedTask(SafeLoad.getInstance(), new Runnable() {
                     @Override
                     public void run() {
-                        SafeLoad.packLoaded.remove(p);
+                        SafeLoad.packLoaded.add(p);
+
+                        if (SafeLoad.blindness) {
+                            p.removePotionEffect(PotionEffectType.BLINDNESS);
+                        }
+
+                        if (SafeLoad.invisibility) {
+                            p.removePotionEffect(PotionEffectType.INVISIBILITY);
+                        }
+
+                        // Stop allowing flight
+                        if (!p.getGameMode().equals(GameMode.CREATIVE)) {
+                            p.setAllowFlight(false);
+                        }
                     }
-                }, 30L);
+                }, SafeLoad.event_cancel_delay);
             }
         }
     }
@@ -105,11 +124,28 @@ public class Events implements Listener {
             e.setCancelled(true);
         }
     }
+    @EventHandler
+    public void inv7(PlayerDropItemEvent e) {
+        Player p = e.getPlayer();
+        if (!SafeLoad.packLoaded.contains(p)) {
+            e.setCancelled(true);
+        }
+    }
+    @EventHandler
+    public void inv8(PlayerInteractEvent e) {
+        Player p = e.getPlayer();
+        if (!SafeLoad.packLoaded.contains(p)) {
+            e.setCancelled(true);
+        }
+    }
 
     // Join & quit events
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
+
+        // Bypass fly kick
+        p.setAllowFlight(true);
 
         if (SafeLoad.invisibility) {
             p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 9999, 255, true, false));
@@ -159,6 +195,20 @@ public class Events implements Listener {
     public void onMove(PlayerMoveEvent e) {
         if (!SafeLoad.packLoaded.contains(e.getPlayer())) {
             e.setCancelled(true);
+        }
+    }
+
+    //Chat events
+    @EventHandler
+    public void onPlayerChat(AsyncPlayerChatEvent e) {
+        if (SafeLoad.disable_chat) {
+            Player p = e.getPlayer();
+            if (!SafeLoad.packLoaded.contains(p)) {
+                e.setCancelled(true);
+                e.getRecipients().remove(p);
+            }
+
+            e.getRecipients().removeIf(pl -> !SafeLoad.packLoaded.contains(pl));
         }
     }
 }
