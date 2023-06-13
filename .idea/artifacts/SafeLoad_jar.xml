@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="SafeLoad:jar">
-    <output-path>$USER_HOME$/Desktop/CODING PLUGINS</output-path>
-    <root id="archive" name="SafeLoad.jar">
-      <element id="module-output" name="SafeLoad" />
-    </root>
-  </artifact>
-</component>
