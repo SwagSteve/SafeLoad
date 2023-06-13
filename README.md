@@ -1,7 +1,8 @@
 
 ![alt text](https://i.ibb.co/PmcCsJP/sl-banner.png)
 
-## SafeLoad allows players who are loading the server resource pack to be protected. This is particularly useful for preventing unfair deaths.
+### SafeLoad allows players who are loading the server resource pack to be protected. 
+#### This is particularly useful for preventing unfair deaths.
 
 ## Features
 #### ∎ Stop loading players from taking damage
