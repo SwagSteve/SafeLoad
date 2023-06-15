@@ -7,7 +7,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffectType;
 
 public class ReloadCommand implements CommandExecutor {
     @Override
@@ -22,10 +21,10 @@ public class ReloadCommand implements CommandExecutor {
                 p.sendMessage(Utils.Color("[&aSL&r] &a&lConfig successfully reloaded!"));
 
                 for (Player all : Bukkit.getOnlinePlayers()) {
-                    all.removePotionEffect(PotionEffectType.INVISIBILITY);
-                    all.removePotionEffect(PotionEffectType.BLINDNESS);
+                    for (Player online : Bukkit.getOnlinePlayers()) {
+                        all.showPlayer(SafeLoad.getInstance(), online);
+                    }
                 }
-
             } else {
                 p.sendMessage(Utils.Color("[&aSL&r] &c&lYou don't have permission to use this command!"));
             }

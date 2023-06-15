@@ -49,7 +49,9 @@ public class Events implements Listener {
                     }
 
                     if (SafeLoad.invisibility) {
-                        p.removePotionEffect(PotionEffectType.INVISIBILITY);
+                        for (Player online : Bukkit.getOnlinePlayers()) {
+                            online.showPlayer(SafeLoad.getInstance(), p);
+                        }
                     }
 
                     // Stop allowing flight
@@ -70,7 +72,9 @@ public class Events implements Listener {
                         }
 
                         if (SafeLoad.invisibility) {
-                            p.removePotionEffect(PotionEffectType.INVISIBILITY);
+                            for (Player online : Bukkit.getOnlinePlayers()) {
+                                online.showPlayer(SafeLoad.getInstance(), p);
+                            }
                         }
 
                         // Stop allowing flight
@@ -148,7 +152,9 @@ public class Events implements Listener {
         p.setAllowFlight(true);
 
         if (SafeLoad.invisibility) {
-            p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 9999, 255, true, false));
+            for (Player loaded : Bukkit.getOnlinePlayers()) {
+                loaded.hidePlayer(SafeLoad.getInstance(), p);
+            }
         }
 
         if (SafeLoad.blindness) {
