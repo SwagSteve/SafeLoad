@@ -8,7 +8,7 @@ Options:
   # suppress-quit-message - Whether the quit message is shown in chat if the user doesn't load the pack.
   suppress-quit-message: true
 
-  # event-cancel-delay - delay (in ticks) between the pack loading and the player being able to move again (20 ticks = 1 second), Requires restart to change!!!
+  # event-cancel-delay - delay (in ticks) between the pack loading and the player being able to move again (20 ticks = 1 second)
   event-cancel-delay: 30
 
   # kick-if-rejected - Whether to kick the player if they reject the pack.
@@ -19,6 +19,9 @@ Options:
 
   # disable-chat - Stops loading players from receiving chat messages.
   disable-chat: true
+
+  # fly-kick-bypass - Enables the fly-kick bypass for loading, floating players (Only change if you know what you're doing)
+  fly-kick-bypass: true
 
 Effects:
   # invisibility - Whether to grant loading player invisibility effect.

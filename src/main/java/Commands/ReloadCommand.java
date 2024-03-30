@@ -18,7 +18,7 @@ public class ReloadCommand implements CommandExecutor {
             if (p.isOp() || p.hasPermission("safeload.commands.reload")) {
                 SafeLoad.getInstance().reloadConfig();
                 SafeLoad.cacheConfig();
-                p.sendMessage(Utils.Color("[&aSL&r] &a&lConfig successfully reloaded!"));
+                p.sendMessage(Utils.Color("[&aSL&r] &aConfig successfully reloaded!"));
 
                 for (Player all : Bukkit.getOnlinePlayers()) {
                     for (Player online : Bukkit.getOnlinePlayers()) {
@@ -26,7 +26,7 @@ public class ReloadCommand implements CommandExecutor {
                     }
                 }
             } else {
-                p.sendMessage(Utils.Color("[&aSL&r] &c&lYou don't have permission to use this command!"));
+                p.sendMessage(Utils.Color("[&aSL&r] &cYou don't have permission to use this command!"));
             }
         }
         return false;

@@ -4,7 +4,6 @@ import Utils.Utils;
 import com.swagsteve.safeload.SafeLoad;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -53,8 +52,10 @@ public class Events implements Listener {
                     }
 
                     // Stop allowing flight
-                    if (!p.getGameMode().equals(GameMode.CREATIVE)) {
-                        p.setAllowFlight(false);
+                    if (SafeLoad.fly_kick_bypass) {
+                        if (!p.getGameMode().equals(GameMode.CREATIVE)) {
+                            p.setAllowFlight(false);
+                        }
                     }
                 }
             }, SafeLoad.event_cancel_delay);
@@ -76,8 +77,10 @@ public class Events implements Listener {
                         }
 
                         // Stop allowing flight
-                        if (!p.getGameMode().equals(GameMode.CREATIVE)) {
-                            p.setAllowFlight(false);
+                        if (SafeLoad.fly_kick_bypass) {
+                            if (!p.getGameMode().equals(GameMode.CREATIVE)) {
+                                p.setAllowFlight(false);
+                            }
                         }
                     }
                 }, SafeLoad.event_cancel_delay);
@@ -87,31 +90,31 @@ public class Events implements Listener {
 
     // Inventory Events
     @EventHandler
-    public void inv1(InventoryClickEvent e) {
+    public void invClick(InventoryClickEvent e) {
         if (!SafeLoad.packLoaded.contains(e.getWhoClicked())) {
             e.setCancelled(true);
         }
     }
     @EventHandler
-    public void inv2(InventoryDragEvent e) {
+    public void invDrag(InventoryDragEvent e) {
         if (!SafeLoad.packLoaded.contains(e.getWhoClicked())) {
             e.setCancelled(true);
         }
     }
     @EventHandler
-    public void inv3(PlayerSwapHandItemsEvent e) {
+    public void invSwapHands(PlayerSwapHandItemsEvent e) {
         if (!SafeLoad.packLoaded.contains(e.getPlayer())) {
             e.setCancelled(true);
         }
     }
     @EventHandler
-    public void inv4(PlayerPickupArrowEvent e) {
+    public void invPickupArrow(PlayerPickupArrowEvent e) {
         if (!SafeLoad.packLoaded.contains(e.getPlayer())) {
             e.setCancelled(true);
         }
     }
     @EventHandler
-    public void inv5(EntityPickupItemEvent e) {
+    public void invPickupItem(EntityPickupItemEvent e) {
         if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
             if (!SafeLoad.packLoaded.contains(p)) {
@@ -120,21 +123,21 @@ public class Events implements Listener {
         }
     }
     @EventHandler
-    public void inv6(InventoryOpenEvent e) {
+    public void invOpen(InventoryOpenEvent e) {
         Player p = (Player) e.getPlayer();
         if (!SafeLoad.packLoaded.contains(p)) {
             e.setCancelled(true);
         }
     }
     @EventHandler
-    public void inv7(PlayerDropItemEvent e) {
+    public void invDropItem(PlayerDropItemEvent e) {
         Player p = e.getPlayer();
         if (!SafeLoad.packLoaded.contains(p)) {
             e.setCancelled(true);
         }
     }
     @EventHandler
-    public void inv8(PlayerInteractEvent e) {
+    public void invInteract(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         if (!SafeLoad.packLoaded.contains(p)) {
             e.setCancelled(true);
@@ -147,7 +150,9 @@ public class Events implements Listener {
         Player p = e.getPlayer();
 
         // Bypass fly kick
-        p.setAllowFlight(true);
+        if (SafeLoad.fly_kick_bypass) {
+            p.setAllowFlight(true);
+        }
 
         if (SafeLoad.invisibility) {
             for (Player loaded : Bukkit.getOnlinePlayers()) {
@@ -163,9 +168,7 @@ public class Events implements Listener {
             e.setJoinMessage("");
         }
 
-        if (SafeLoad.packLoaded.contains(p)) {
-            SafeLoad.packLoaded.remove(p);
-        }
+        SafeLoad.packLoaded.remove(p);
     }
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {

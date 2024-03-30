@@ -5,8 +5,6 @@ import Listeners.Events;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
 import java.util.ArrayList;
 
 public final class SafeLoad extends JavaPlugin {
@@ -21,7 +19,7 @@ public final class SafeLoad extends JavaPlugin {
     }
 
     //Config cache values
-    public static Boolean disable_chat, suppress_join_message, suppress_quit_message, invisibility, blindness, kick_if_rejected;
+    public static Boolean disable_chat, suppress_join_message, suppress_quit_message, invisibility, blindness, kick_if_rejected, fly_kick_bypass;
     public static String delayed_join_message, kick_message;
     public static Integer event_cancel_delay;
 
@@ -32,16 +30,11 @@ public final class SafeLoad extends JavaPlugin {
         instance = this;
 
         //Config
-        File tempConfig = new File(getDataFolder(), "config.yml");
-        if (!tempConfig.exists()) {
-            getLogger().info("Generating config...");
-            saveDefaultConfig();
-            reloadConfig();
-        }
-
+        getConfig().options().copyDefaults(true);
+        saveDefaultConfig();
         cacheConfig();
 
-        //Command
+        //Reload command
         this.getCommand("sl-reload").setExecutor(new ReloadCommand());
 
         //Events
@@ -56,9 +49,6 @@ public final class SafeLoad extends JavaPlugin {
     public void onDisable() {
         //Disabled message
         getLogger().info("Disabled!");
-
-        //Save config
-        saveConfig();
     }
 
     public static void cacheConfig() {
@@ -73,6 +63,7 @@ public final class SafeLoad extends JavaPlugin {
         SafeLoad.blindness = config.getBoolean("Effects.blindness");
         SafeLoad.kick_if_rejected = config.getBoolean("Options.kick-if-rejected");
         SafeLoad.disable_chat = config.getBoolean("Options.disable-chat");
+        SafeLoad.fly_kick_bypass = config.getBoolean("Options.fly-kick-bypass");
 
         //Strings
         SafeLoad.delayed_join_message = config.getString("Options.delayed-join-message");
