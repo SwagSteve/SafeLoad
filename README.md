@@ -1,5 +1,5 @@
 
-![alt text](https://i.ibb.co/PmcCsJP/sl-banner.png)
+![alt text](https://github.com/SwagSteve/SafeLoad/blob/master/banner.png?raw=true)
 
 ### SafeLoad allows players who are loading the server resource pack to be protected. 
 #### This is particularly useful for preventing unfair deaths...
